@@ -179,7 +179,7 @@ def main():
     retirement_age = 64
     inflation = 0.03
     monthly_invested = 1000
-    principle = 10000
+    principle = 0
     yearly_apy_preretire = 0.088
     first_year_selfpay = 50000 # todays dollar
     yearly_apy_retire = 0.05
