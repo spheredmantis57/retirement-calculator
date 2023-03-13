@@ -1,10 +1,72 @@
 import os
 
-def clear():
-    if os.name == 'nt':
-        os.system("cls")
-    else:
-        os.system("clear")
+
+class InputHandler:
+    WARNING = "Warning: {}"
+
+    def __init__(self, allow_cancel=False):
+        self.allow_cancel = allow_cancel
+        
+
+    class CancelInput(Exception):
+        """User wants to cancel input, but not quit program"""
+        pass
+
+    class QuitProgram(Exception):
+        """User wants to quit program"""
+        pass
+
+    @staticmethod
+    def clear():
+        if os.name == 'nt':
+            os.system("cls")
+        else:
+            os.system("clear")
+
+
+    def _quit(self):
+        self.clear()
+        print("Press Ctrl+C to confirm QUIT.")
+        print("Press ENTER to go back to input screen.")
+        if self.allow_cancel is True:
+            print("Press Ctrl+D to cancel input, but not quit program.")
+            try:
+                input()
+            except KeyboardInterrupt:
+                raise InputHandler.QuitProgram("User quitting")
+            except EOFError:
+                raise InputHandler.CancelInput("User does not want to enter input")
+        else:
+            try:
+                input()
+            except (KeyboardInterrupt, EOFError):
+                raise InputHandler.QuitProgram("User quitting")
+
+        
+
+    def input_int(self, min=0, max=1000000, prompt=None):
+        """
+        todo: finish this doc string
+        RETURNS:
+        int:value entered, within range (cannot be trusted if exception raised)
+
+        RAISES:
+        InputHandler.QuitProgram:user wants to quit program
+        InputHandler.CancelQuit:user wants to cancel input, but not quit program
+        """
+        if prompt is None:
+            prompt = f"Enter a number from {min} to {max}: "
+        while True:
+            try:
+                number = input(prompt)
+                number = int(number)
+                if min <= number <= max:
+                    return number
+                print(self.WARNING.format("Incorrect range. Try again."))  
+            except TypeError:
+                print(self.WARNING.format("Must be an int. Try again."))
+            except (KeyboardInterrupt, EOFError):
+                self._quit()
 
 
 class Retirement:
@@ -96,6 +158,14 @@ class Retirement:
 
 
 def main():
+    # get user params
+    input_handler = InputHandler()
+    try:
+        age = input_handler.input_int(0, 111)
+        retirement_age = input_handler.input_int(0, 111)
+    except InputHandler.QuitProgram:
+        return
+
     # age = 30
     # retirement_age = 60
     # inflation = 0.03
@@ -106,7 +176,6 @@ def main():
     # yearly_apy_retire = 0.05
     # # https://www.ssa.gov/OACT/quickcalc/
     # social_security = 1379 * 12
-    age = 25
     retirement_age = 64
     inflation = 0.03
     monthly_invested = 1000
@@ -115,18 +184,18 @@ def main():
     first_year_selfpay = 50000 # todays dollar
     yearly_apy_retire = 0.05
     # https://www.ssa.gov/OACT/quickcalc/
-    social_security = 0
-    # social_security = 1726 * 12
+    # social_security = 0
+    social_security = 1726 * 12
 
     years_till_retire = retirement_age - age
     preretire_amortization, retire_amortization = Retirement.the_works(years_till_retire, inflation, monthly_invested, principle, yearly_apy_preretire, first_year_selfpay, yearly_apy_retire, social_security)
 
-    clear()
+    InputHandler.clear()
     input("Press enter to display preretirement amortization")
     Retirement.print_preretire_amortization(preretire_amortization, age)
 
     input("\n\nPress enter to display retirement amortization")
-    clear()
+    InputHandler.clear()
     Retirement.print_retirement_amortization(retire_amortization, retirement_age)
 
 if __name__ == "__main__":
