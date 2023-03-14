@@ -154,9 +154,9 @@ class Retirement:
             social_security = Retirement.calc_future_dollars(social_security, inflation, years_till_retire)
 
         # simulate years in retirement
-        retirement_ammortization = Retirement.simulate_retirement(invested_at_retirement, first_year_selfpay_adjusted, yearly_apy_retire, inflation, social_security)
+        retirement_amortization = Retirement.simulate_retirement(invested_at_retirement, first_year_selfpay_adjusted, yearly_apy_retire, inflation, social_security)
 
-        return preretire_amm, retirement_ammortization
+        return preretire_amm, retirement_amortization
 
 
 def main():
