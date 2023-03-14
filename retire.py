@@ -1,6 +1,9 @@
 import os
 
 
+SS_LINK = "https://www.ssa.gov/OACT/quickcalc/"
+
+
 class InputHandler:
     WARNING = "Warning: {}"
 
@@ -44,7 +47,7 @@ class InputHandler:
 
         
 
-    def input_int(self, min=0, max=1000000, prompt=None):
+    def input_int(self, min=0, max=1000000, input_type="int"):
         """
         todo: finish this doc string
         RETURNS:
@@ -54,8 +57,7 @@ class InputHandler:
         InputHandler.QuitProgram:user wants to quit program
         InputHandler.CancelQuit:user wants to cancel input, but not quit program
         """
-        if prompt is None:
-            prompt = f"Enter a number from {min} to {max}: "
+        prompt = f"Enter {input_type} (an int from {min} to {max}): "
         while True:
             try:
                 number = input(prompt)
@@ -161,34 +163,30 @@ def main():
     # get user params
     input_handler = InputHandler()
     try:
-        age = input_handler.input_int(0, 111)
-        retirement_age = input_handler.input_int(0, 111)
+        age_type = "your current age"
+        age = input_handler.input_int(0, 111, age_type)
+        retire_age_type = "your retirement age"
+        retirement_age = input_handler.input_int(0, 111, retire_age_type)
+        inflation_type = "inflation (%)"
+        inflation = input_handler.input_int(0 , 10, inflation_type)/100
+        principle_type = "your initial principle ($)"
+        principle = input_handler.input_int(0, 10000000, principle_type)
+        monthly_invested_type = "your monthly investing"
+        monthly = input_handler.input_int(0, 1000000, monthly_invested_type)
+        apy_type = "pre-retirement APY (%)"
+        yearly_apy_preretire = input_handler.input_int(0 , 35, apy_type)/100
+        retire_pay_type = "your first retirement year distribution (todays $)"
+        first_year_selfpay = input_handler.input_int(0, 100000, retire_pay_type)
+        apy_type = "post-retirement APY (%)"
+        yearly_apy_retire = input_handler.input_int(0 , 35, apy_type)/100
+        print(f"To estimate social security you can use {SS_LINK}")
+        ss_type = "your estimated monthly social security (in todays $)"
+        social_security = input_handler.input_int(0, 10000, ss_type)*12
     except InputHandler.QuitProgram:
         return
 
-    # age = 30
-    # retirement_age = 60
-    # inflation = 0.03
-    # monthly_invested = 6000/12
-    # principle = 5000
-    # yearly_apy_preretire = 0.08
-    # first_year_selfpay = 7200 # todays dollar
-    # yearly_apy_retire = 0.05
-    # # https://www.ssa.gov/OACT/quickcalc/
-    # social_security = 1379 * 12
-    retirement_age = 64
-    inflation = 0.03
-    monthly_invested = 1000
-    principle = 0
-    yearly_apy_preretire = 0.088
-    first_year_selfpay = 50000 # todays dollar
-    yearly_apy_retire = 0.05
-    # https://www.ssa.gov/OACT/quickcalc/
-    # social_security = 0
-    social_security = 1726 * 12
-
     years_till_retire = retirement_age - age
-    preretire_amortization, retire_amortization = Retirement.the_works(years_till_retire, inflation, monthly_invested, principle, yearly_apy_preretire, first_year_selfpay, yearly_apy_retire, social_security)
+    preretire_amortization, retire_amortization = Retirement.the_works(years_till_retire, inflation, monthly, principle, yearly_apy_preretire, first_year_selfpay, yearly_apy_retire, social_security)
 
     InputHandler.clear()
     input("Press enter to display preretirement amortization")
