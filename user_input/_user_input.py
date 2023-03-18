@@ -1,3 +1,5 @@
+"""Module for InputHandler class
+"""
 from os import name, system
 
 class InputHandler:
@@ -14,19 +16,17 @@ class InputHandler:
                 program will quit
         """
         self.allow_cancel = allow_cancel
-        
+
 
     class CancelInput(Exception):
         """User wants to cancel input, but not quit program"""
-        pass
 
     class QuitProgram(Exception):
         """User wants to quit program"""
-        pass
 
     @staticmethod
     def clear():
-        """clears the terminal
+        """clears the termin_valueal
         """
         if name == 'nt':
             system("cls")
@@ -60,12 +60,12 @@ class InputHandler:
                 raise InputHandler.QuitProgram("User quitting")
 
 
-    def input_int(self, min=0, max=1000000, input_type="int"):
+    def input_int(self, min_value=0, max_value=1000000, input_type="int"):
         """gets an integer from the user
 
         Args:
-            int:min - minimum the input can be
-            int:max - maximum the input can be
+            int:min_value - min_valueimum the input can be
+            int:max_value - max_valueimum the input can be
             string:input_type - what the int is for (eg: "years")
 
         Returns:
@@ -76,15 +76,15 @@ class InputHandler:
             InputHandler.CancelQuit:user wants to cancel input, but not quit program
         """
         # get the input
-        prompt = f"Enter {input_type} (an int from {min} to {max}): "
-        # try again till min and max are met
+        prompt = f"Enter {input_type} (an int from {min_value} to {max_value}): "
+        # try again till min_value and max_value are met
         while True:
             try:
                 number = input(prompt)
                 number = int(number)
-                if min <= number <= max:
+                if min_value <= number <= max_value:
                     return number
-                print(self.WARNING.format("Incorrect range. Try again."))  
+                print(self.WARNING.format("Incorrect range. Try again."))
             except TypeError:
                 print(self.WARNING.format("Must be an int. Try again."))
             except (KeyboardInterrupt, EOFError):
