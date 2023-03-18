@@ -31,14 +31,23 @@ def main():
     except InputHandler.QuitProgram:
         return
 
+    # simulate retirement
     years_till_retire = retirement_age - age
     preretire_amortization, retire_amortization = Retirement.the_works(years_till_retire, inflation, monthly, principle, yearly_apy_preretire, first_year_selfpay, yearly_apy_retire, social_security)
 
+    # show preretirement amortization
     InputHandler.clear()
-    input("Press enter to display preretirement amortization")
+    try:
+        input("Press enter to display preretirement amortization")
+    except (KeyboardInterrupt, EOFError):
+        pass
     Retirement.print_preretire_amortization(preretire_amortization, age)
 
-    input("\n\nPress enter to display retirement amortization")
+    # show retirement amortization
+    try:
+        input("\n\nPress enter to display retirement amortization")
+    except (KeyboardInterrupt, EOFError):
+        pass
     InputHandler.clear()
     Retirement.print_retirement_amortization(retire_amortization, retirement_age)
 
