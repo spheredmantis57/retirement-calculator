@@ -45,7 +45,6 @@ table th{
     background-color: #f2f2f2;
 }
 
-/* Style for links */
 a {
     color: #007bff;
     text-decoration: none;
@@ -55,7 +54,6 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Style for buttons */
 .button {
     display: inline-block;
     background-color: #007bff;
@@ -70,7 +68,6 @@ a:hover {
     cursor: pointer;
 }
 
-/* Footer style */
 footer {
     text-align: center;
     padding: 10px;
@@ -78,7 +75,7 @@ footer {
     color: #777;
 }
 
-/* Media query for responsive design */
+/* for small screens */
 @media (max-width: 768px) {
     .container {
         padding: 10px;
