@@ -1,0 +1,86 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+    color: #333;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+table {
+    /* Add a margin at the top to prevent content from hiding under the sticky header */
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: right;
+}
+table th{
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: right;
+    /* Make table header sticky */
+    position: sticky;
+    top: 0;
+    background-color: #f2f2f2;
+}
+
+/* Style for links */
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Style for buttons */
+.button {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.button:hover {
+    background-color: #0056b3;
+    cursor: pointer;
+}
+
+/* Footer style */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #f2f2f2;
+    color: #777;
+}
+
+/* Media query for responsive design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+}

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirement Calculator - Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* this is to have "tabs" for the 2 amortizations */
+        .tab {
+            overflow: hidden;
+        }
+
+        .tab button {
+            background-color: inherit;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+        }
+
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        .tab button.active {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+        table tbody tr:hover {
+            background-color: #7ec5ff;
+        }
+        table tbody tr td:hover {
+            background-color: #009488;
+        }
+    </style>
+</head>
+<body>
+    <h1>Retirement Calculator - Results</h1>
+
+    <!-- Tabbed Interface -->
+    <div class="tab">
+        <button class="tablinks active" onclick="openTab(event, 'preretire')">Preretirement Amortization</button>
+        <button class="tablinks" onclick="openTab(event, 'retire')">Retirement Amortization</button>
+    </div>
+
+    <!-- Preretire Amortization Table -->
+    <div id="preretire" class="tab-content active">
+        <h2>Preretirement Amortization</h2>
+        <div class="table-wrapper">
+        <table border="1">
+        <thead>
+            <tr>
+                <th>Age</th>
+                <th>Start Principle</th>
+                <th>Start Balance</th>
+                <th>Interest</th>
+                <th>End Balance</th>
+                <th>End Principle</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for year_data in preretire_amortization %}
+            <tr>
+                <td>{{ loop.index0 + age }}</td>
+                <td>${{ "{:.2f}".format(year_data['pre_start_prinr']) }}</td>
+                <td>${{ "{:.2f}".format(year_data['pre_start_balance']) }}</td>
+                <td>${{ "{:.2f}".format(year_data['pre_interest']) }}</td>
+                <td>${{ "{:.2f}".format(year_data['pre_end_balance']) }}</td>
+                <td>${{ "{:.2f}".format(year_data['pre_end_principle']) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+        </div>
+    </div>
+
+    <!-- Retirement Amortization Table -->
+    <div id="retire" class="tab-content">
+        <h2>Retirement Amortization</h2>
+        <div class="table-wrapper"></div>
+        <table border="1">
+        <thead>
+            <tr>
+                <th>Age</th>
+                <th>Principle</th>
+                <th>Year Pay</th>
+                <th>End Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for year_data in retire_amortization %}
+            <tr>
+                <td>{{ loop.index0 + retirement_age }}</td>
+                <td>${{ "{:.2f}".format(year_data['Principle']) }}</td>
+                <td>${{ "{:.2f}".format(year_data['Withdraw']) }}</td>
+                <td>${{ "{:.2f}".format(year_data['End']) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+        </div>
+    </div>
+
+    <!-- JavaScript to handle tab switching -->
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName('tab-content');
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = 'none';
+            }
+            tablinks = document.getElementsByClassName('tablinks');
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(' active', '');
+            }
+            document.getElementById(tabName).style.display = 'block';
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+</body>
+</html>

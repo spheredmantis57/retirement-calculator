@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirement Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Retirement Calculator</h1>
+    <form action="/calculate" method="post">
+        <label for="current_age">Your Current Age:</label>
+        <input type="number" id="current_age" name="current_age" min="0" max="111" required><br>
+
+        <label for="retirement_age">Your Retirement Age:</label>
+        <input type="number" id="retirement_age" name="retirement_age" min="0" max="111" required><br>
+
+        <label for="inflation">Inflation (%):</label>
+        <input type="number" id="inflation" name="inflation" min="0" max="10" required><br>
+
+        <label for="initial_principle">Your Initial Principle ($):</label>
+        <input type="number" id="initial_principle" name="initial_principle" min="0" max="10000000" required><br>
+
+        <label for="monthly_investing">Your Monthly Investing:</label>
+        <input type="number" id="monthly_investing" name="monthly_investing" min="0" max="1000000" required><br>
+
+        <label for="pre_retire_apy">Pre-Retirement APY (%):</label>
+        <input type="number" id="pre_retire_apy" name="pre_retire_apy" min="0" max="35" required><br>
+
+        <label for="first_retirement_distribution">Your First Retirement Year Distribution (Today's $):</label>
+        <input type="number" id="first_retirement_distribution" name="first_retirement_distribution" min="0" max="100000" required><br>
+
+        <label for="post_retire_apy">Post-Retirement APY (%):</label>
+        <input type="number" id="post_retire_apy" name="post_retire_apy" min="0" max="35" required><br>
+
+        <p>To estimate social security, you can use <a href="https://www.ssa.gov/OACT/quickcalc/" target="_blank">Social Security Quick Calculator</a>.</p>
+        <label for="estimated_monthly_social_security">Your Estimated Monthly Social Security (Today's $):</label>
+        <input type="number" id="estimated_monthly_social_security" name="estimated_monthly_social_security" min="0" max="10000" required><br>
+
+        <button type="submit">Calculate</button>
+    </form>
+</body>
+</html>
