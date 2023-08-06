@@ -5,14 +5,17 @@
 from argparse import ArgumentParser
 from flask import Flask, render_template, request
 
-if __name__ == '__main__':
-    # running as a standalone program
+try:
     from user_input import InputHandler
     from retirement import Retirement
-else:
-    # running as part of another project
+except ImportError:
+    pass
+
+try:
     from .user_input import InputHandler
     from .retirement import Retirement
+except ImportError:
+    pass
 
 
 APP = Flask(__name__)
