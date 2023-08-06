@@ -3,6 +3,7 @@
 # Dowling: only two over
 # pylint: disable=too-many-locals
 from argparse import ArgumentParser
+from flask import Flask, render_template, request
 
 if __name__ == '__main__':
     # running as a standalone program
@@ -13,12 +14,32 @@ else:
     from .user_input import InputHandler
     from .retirement import Retirement
 
-from flask import Flask, render_template, request
 
-app = Flask(__name__)
+APP = Flask(__name__)
 SS_LINK = "https://www.ssa.gov/OACT/quickcalc/"
 
-def get_amortizations(years_till_retire, first_year_selfpay, inflation, principle, yearly_apy_preretire, monthly, yearly_apy_retire, social_security):
+# pylint: disable=too-many-arguments
+def get_amortizations(years_till_retire, first_year_selfpay, inflation,
+                      principle, yearly_apy_preretire, monthly,
+                      yearly_apy_retire, social_security):
+    """
+    Helper function to get the amortizations for working years and retirement
+    years.
+
+    Arguments:
+    years_till_retire (int) - the number of years till you retire
+    first_year_selfpay (float) - the amount in todays dollars you want each year
+                                 of retirement
+    principle (float) - the amount you have invested right now
+    yearly_apy_preretire (float) - APY of working year investment
+    monthly (float) - the amount you invest each month
+    yearly_apy_retire (float) - APY of retirement year investment
+    social_security (float) - the amount you'll get from SS each year
+
+    Returns:
+    preretire_amortization, retire_amortization
+    Refer to print_preretire_entry and print_retire_entry
+    """
     # make year pay future dollars
     first_year_selfpay_adjusted = \
         Retirement.calc_future_dollars(first_year_selfpay,
@@ -48,10 +69,11 @@ def get_amortizations(years_till_retire, first_year_selfpay, inflation, principl
                                        social_security)
 
     return preretire_amortization, retire_amortization
+# pylint: enable=too-many-arguments
 
 
-def main():
-    """the main function of the program
+def cli():
+    """the main (CLI) function of the program
     """
     # get user params
     input_handler = InputHandler()
@@ -81,7 +103,10 @@ def main():
     # simulate retirement
     years_till_retire = retirement_age - age
 
-    preretire_amortization, retire_amortization = get_amortizations(years_till_retire, first_year_selfpay, inflation, principle, yearly_apy_preretire, monthly, yearly_apy_retire, social_security)
+    preretire_amortization, retire_amortization = \
+        get_amortizations(years_till_retire, first_year_selfpay, inflation,
+                          principle, yearly_apy_preretire, monthly,
+                          yearly_apy_retire, social_security)
 
     # show preretirement amortization
     InputHandler.clear()
@@ -100,12 +125,14 @@ def main():
     Retirement.print_retirement_amortization(retire_amortization,
                                              retirement_age)
 
-@app.route('/')
+@APP.route('/')
 def retirement_calculator():
+    """display main retirement window for input"""
     return render_template('calculator.html')
 
-@app.route('/calculate', methods=['POST'])
+@APP.route('/calculate', methods=['POST'])
 def calculate_retirement():
+    """take the request from retirement_calculator() to get amortizations"""
     # input from the form
     current_age = int(request.form['current_age'])
     retirement_age = int(request.form['retirement_age'])
@@ -119,7 +146,10 @@ def calculate_retirement():
     # calculate
     # simulate retirement
     years_till_retire = retirement_age - current_age
-    preretire_amortization, retire_amortization = get_amortizations(years_till_retire, first_year_selfpay, inflation, principle, pre_retire_apy, monthly, post_retire_apy, social_security)
+    preretire_amortization, retire_amortization = \
+        get_amortizations(years_till_retire, first_year_selfpay, inflation,
+                          principle, pre_retire_apy, monthly, post_retire_apy,
+                          social_security)
     # display results
     return render_template('results.html',
                            preretire_amortization=preretire_amortization,
@@ -127,11 +157,15 @@ def calculate_retirement():
                            age=current_age,
                            retirement_age=retirement_age)
 
-if __name__ == "__main__":
+def main():
+    """the main func of the program"""
     parser = ArgumentParser(description="Sample argparse script")
     parser.add_argument("--cli", action="store_true", help="Set this flag to enable the CLI mode")
     args = parser.parse_args()
     if args.cli:
-        main()
+        cli()
     else:
-        app.run()
+        APP.run()
+
+if __name__ == "__main__":
+    main()
