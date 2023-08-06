@@ -4,8 +4,14 @@
 # pylint: disable=too-many-locals
 from argparse import ArgumentParser
 
-from user_input import InputHandler
-from retirement import Retirement
+if __name__ == '__main__':
+    # running as a standalone program
+    from user_input import InputHandler
+    from retirement import Retirement
+else:
+    # running as part of another project
+    from .user_input import InputHandler
+    from .retirement import Retirement
 
 from flask import Flask, render_template, request
 

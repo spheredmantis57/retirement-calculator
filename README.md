@@ -5,3 +5,4 @@ python3 main.py
 - lint
 - document that running from the main.py will allow cli or a flask server (for development purposes)
 - for actual hosting use gunicorn wsgi:app
+- look at issue tickets
