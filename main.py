@@ -3,7 +3,7 @@
 # Dowling: only two over
 # pylint: disable=too-many-locals
 from argparse import ArgumentParser
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, Blueprint
 
 try:
     from user_input import InputHandler
@@ -17,7 +17,10 @@ try:
 except ImportError:
     pass
 
-
+# blue print to allow this website to be taken in by another flask app
+RET_CALC_BLUE_PRINT = Blueprint('retire', __name__,
+                                static_folder="static",
+                                template_folder="templates")
 APP = Flask(__name__)
 SS_LINK = "https://www.ssa.gov/OACT/quickcalc/"
 
@@ -128,11 +131,13 @@ def cli():
     Retirement.print_retirement_amortization(retire_amortization,
                                              retirement_age)
 
+@RET_CALC_BLUE_PRINT.route('/')
 @APP.route('/')
 def retirement_calculator():
     """display main retirement window for input"""
     return render_template('calculator.html')
 
+@RET_CALC_BLUE_PRINT.route('/calculate', methods=['POST'])
 @APP.route('/calculate', methods=['POST'])
 def calculate_retirement():
     """take the request from retirement_calculator() to get amortizations"""
