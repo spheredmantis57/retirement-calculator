@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='ret_calc_styles.css') }}">
 </head>
 <body>
+    <div class="container">
     <h1>Retirement Calculator</h1>
     <form action="/calculate" method="post">
         <label for="current_age">Your Current Age:</label>
@@ -39,6 +40,7 @@
 
         <button type="submit">Calculate</button>
     </form>
+    </div>
     <script>
         // the check that will be called in the event listener
         function validatePercentageFields() {

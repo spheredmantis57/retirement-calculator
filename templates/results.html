@@ -45,6 +45,7 @@
     </style>
 </head>
 <body>
+    <div class="container">
     <h1>Retirement Calculator - Results</h1>
 
     <!-- Tabbed Interface -->
@@ -52,7 +53,8 @@
         <button class="tablinks active" onclick="openTab(event, 'preretire')">Preretirement Amortization</button>
         <button class="tablinks" onclick="openTab(event, 'retire')">Retirement Amortization</button>
     </div>
-
+    <div class="table-wrapper">
+    <div class="table-container">
     <!-- Preretire Amortization Table -->
     <div id="preretire" class="tab-content active">
         <h2>Preretirement Amortization</h2>
@@ -83,8 +85,12 @@
         </table>
         </div>
     </div>
+    </div>
+    </div>
 
     <!-- Retirement Amortization Table -->
+    <div class="table-wrapper">
+    <div class="table-container">
     <div id="retire" class="tab-content">
         <h2>Retirement Amortization</h2>
         <div class="table-wrapper"></div>
@@ -109,6 +115,9 @@
         </tbody>
         </table>
         </div>
+    </div>
+    </div>
+    </div>
     </div>
 
     <!-- JavaScript to handle tab switching -->
