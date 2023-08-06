@@ -77,7 +77,6 @@ def get_amortizations(years_till_retire, first_year_selfpay, inflation,
     return preretire_amortization, retire_amortization
 # pylint: enable=too-many-arguments
 
-
 def cli():
     """the main (CLI) function of the program
     """
