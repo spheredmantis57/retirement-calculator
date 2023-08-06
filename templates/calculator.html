@@ -16,7 +16,7 @@
         <input type="number" id="retirement_age" name="retirement_age" min="0" max="111" required><br>
 
         <label for="inflation">Inflation (%):</label>
-        <input type="number" id="inflation" name="inflation" min="0" max="10" required><br>
+        <input type="text" id="inflation" name="inflation" class="percentage" pattern="[0-9]+(\.[0-9]+)?" min="0" max="10" required><br>
 
         <label for="initial_principle">Your Initial Principle ($):</label>
         <input type="number" id="initial_principle" name="initial_principle" min="0" max="10000000" required><br>
@@ -25,13 +25,13 @@
         <input type="number" id="monthly_investing" name="monthly_investing" min="0" max="1000000" required><br>
 
         <label for="pre_retire_apy">Pre-Retirement APY (%):</label>
-        <input type="number" id="pre_retire_apy" name="pre_retire_apy" min="0" max="35" required><br>
+        <input type="text" id="pre_retire_apy" name="pre_retire_apy" class="percentage" pattern="[0-9]+(\.[0-9]+)?" min="0" max="35" required><br>
 
         <label for="first_retirement_distribution">Your First Retirement Year Distribution (Today's $):</label>
         <input type="number" id="first_retirement_distribution" name="first_retirement_distribution" min="0" max="100000" required><br>
 
         <label for="post_retire_apy">Post-Retirement APY (%):</label>
-        <input type="number" id="post_retire_apy" name="post_retire_apy" min="0" max="35" required><br>
+        <input type="text" id="post_retire_apy" name="post_retire_apy" class="percentage" pattern="[0-9]+(\.[0-9]+)?" min="0" max="35" required><br>
 
         <p>To estimate social security, you can use <a href="https://www.ssa.gov/OACT/quickcalc/" target="_blank">Social Security Quick Calculator</a>.</p>
         <label for="estimated_monthly_social_security">Your Estimated Monthly Social Security (Today's $):</label>
@@ -39,5 +39,41 @@
 
         <button type="submit">Calculate</button>
     </form>
+    <script>
+        // the check that will be called in the event listener
+        function validatePercentageFields() {
+            const percentageInputs = document.querySelectorAll('.percentage');
+
+            for (const input of percentageInputs) {
+                const value = parseFloat(input.value.replace(/[^\d.]/g, ''));
+                const min = parseFloat(input.min);
+                const max = parseFloat(input.max);
+
+                if (isNaN(value) || value < min) {
+                    alert(`Please enter a number between ${min} and ${max}.`);
+                    input.value = min.toFixed(2);
+                    return false;
+                } else if (value > max) {
+                    alert(`Please enter a number between ${min} and ${max}.`);
+                    input.value = max.toFixed(2);
+                    return false;
+                } else {
+                    input.value = value.toFixed(2);
+                }
+            }
+
+            return true;
+        }
+
+        // Event listener on form submission
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // prevent form submission till checked
+
+            if (validatePercentageFields()) {
+                form.submit(); // if valid, then submit
+            }
+        });
+    </script>
 </body>
 </html>
