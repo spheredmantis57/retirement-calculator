@@ -43,19 +43,37 @@
     </div>
     <script>
         // the check that will be called in the event listener
-        function validatePercentageFields() {
+        function validateFields()
+        {
+            // validate age current age is less than retirement age
+            const currentAgeInput = document.getElementById('current_age');
+            const retirementAgeInput = document.getElementById('retirement_age');
+
+            const currentAge = parseInt(currentAgeInput.value);
+            const retirementAge = parseInt(retirementAgeInput.value);
+
+            if (retirementAge <= currentAge)
+            {
+                alert("Retirement age must be greater than the current age.");
+                return false;
+            }
+
+            // validate percentages
             const percentageInputs = document.querySelectorAll('.percentage');
 
-            for (const input of percentageInputs) {
+            for (const input of percentageInputs)
+            {
                 const value = parseFloat(input.value.replace(/[^\d.]/g, ''));
                 const min = parseFloat(input.min);
                 const max = parseFloat(input.max);
 
-                if (isNaN(value) || value < min) {
+                if (isNaN(value) || value < min)
+                {
                     alert(`Please enter a number between ${min} and ${max}.`);
                     input.value = min.toFixed(2);
                     return false;
-                } else if (value > max) {
+                } else if (value > max)
+                {
                     alert(`Please enter a number between ${min} and ${max}.`);
                     input.value = max.toFixed(2);
                     return false;
@@ -69,10 +87,11 @@
 
         // Event listener on form submission
         const form = document.querySelector('form');
-        form.addEventListener('submit', function(event) {
+        form.addEventListener('submit', function(event)
+        {
             event.preventDefault(); // prevent form submission till checked
 
-            if (validatePercentageFields()) {
+            if (validateFields()) {
                 form.submit(); // if valid, then submit
             }
         });
