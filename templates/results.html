@@ -7,11 +7,13 @@
     <link rel="stylesheet" href="static/ret_calc_styles.css">
     <style>
         /* this is to have "tabs" for the 2 amortizations */
-        .tab {
+        .tab
+        {
             overflow: hidden;
         }
 
-        .tab button {
+        .tab button
+        {
             background-color: inherit;
             border: none;
             outline: none;
@@ -20,26 +22,32 @@
             transition: 0.3s;
         }
 
-        .tab button:hover {
+        .tab button:hover
+        {
             background-color: #ddd;
         }
 
-        .tab button.active {
+        .tab button.active
+        {
             background-color: #007bff;
             color: #fff;
         }
 
-        .tab-content {
+        .tab-content
+        {
             display: none;
         }
 
-        .tab-content.active {
+        .tab-content.active
+        {
             display: block;
         }
-        table tbody tr:hover {
+        table tbody tr:hover
+        {
             background-color: #7ec5ff;
         }
-        table tbody tr td:hover {
+        table tbody tr td:hover
+        {
             background-color: #009488;
         }
     </style>
@@ -122,14 +130,17 @@
 
     <!-- JavaScript to handle tab switching -->
     <script>
-        function openTab(evt, tabName) {
+        function openTab(evt, tabName)
+        {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName('tab-content');
-            for (i = 0; i < tabcontent.length; i++) {
+            for (i = 0; i < tabcontent.length; i++)
+            {
                 tabcontent[i].style.display = 'none';
             }
             tablinks = document.getElementsByClassName('tablinks');
-            for (i = 0; i < tablinks.length; i++) {
+            for (i = 0; i < tablinks.length; i++)
+            {
                 tablinks[i].className = tablinks[i].className.replace(' active', '');
             }
             document.getElementById(tabName).style.display = 'block';

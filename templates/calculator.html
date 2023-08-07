@@ -72,12 +72,15 @@
                     alert(`Please enter a number between ${min} and ${max}.`);
                     input.value = min.toFixed(2);
                     return false;
-                } else if (value > max)
+                }
+                else if (value > max)
                 {
                     alert(`Please enter a number between ${min} and ${max}.`);
                     input.value = max.toFixed(2);
                     return false;
-                } else {
+                }
+                else
+                {
                     input.value = value.toFixed(2);
                 }
             }
@@ -91,7 +94,8 @@
         {
             event.preventDefault(); // prevent form submission till checked
 
-            if (validateFields()) {
+            if (validateFields())
+            {
                 form.submit(); // if valid, then submit
             }
         });

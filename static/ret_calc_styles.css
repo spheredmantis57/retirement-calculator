@@ -1,4 +1,5 @@
-body {
+body
+{
     background-color: #f7f7f7;
     color: #333;
     font-family: Arial, sans-serif;
@@ -11,7 +12,8 @@ body {
     padding: 0;
 }
 
-.container {
+.container
+{
     text-align: center;
     max-width: 100%;
     margin: auto;
@@ -19,26 +21,31 @@ body {
     min-width: 670px;
 }
 
-h1 {
+h1
+{
     font-size: 32px;
     margin-bottom: 20px;
 }
 
-h2 {
+h2
+{
     font-size: 24px;
     margin-bottom: 15px;
 }
 
-.table-wrapper {
+.table-wrapper
+{
     display: flex;
     justify-content: center;
 }
 
-.table-container {
+.table-container
+{
     max-width: 100%; /* Adjust the width as needed */
 }
 
-table {
+table
+{
     /* Add a margin at the top to prevent content from hiding under the sticky header */
     margin-top: 20px;
     table-layout: fixed;
@@ -46,12 +53,14 @@ table {
     width: 100%; /* Adjust the width as needed */
 }
 
-table td {
+table td
+{
     border: 1px solid #ccc;
     padding: 10px;
     text-align: right;
 }
-table th{
+table th
+{
     border: 1px solid #ccc;
     padding: 10px;
     text-align: right;
@@ -62,17 +71,20 @@ table th{
 }
 
 /* Style for links */
-a {
+a
+{
     color: #007bff;
     text-decoration: none;
 }
 
-a:hover {
+a:hover
+{
     text-decoration: underline;
 }
 
 /* Style for buttons */
-.button {
+.button
+{
     display: inline-block;
     background-color: #007bff;
     color: #fff;
@@ -81,13 +93,15 @@ a:hover {
     text-decoration: none;
 }
 
-.button:hover {
+.button:hover
+{
     background-color: #0056b3;
     cursor: pointer;
 }
 
 /* Footer style */
-footer {
+footer
+{
     text-align: center;
     padding: 10px;
     background-color: #f2f2f2;
@@ -95,7 +109,8 @@ footer {
 }
 
 /* Media query for responsive design */
-@media (max-width: 768px) {
+@media (max-width: 768px)
+{
     .container {
         padding: 10px;
     }
