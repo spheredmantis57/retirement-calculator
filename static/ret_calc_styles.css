@@ -10,15 +10,15 @@ body
     height: 100vh;
     margin: 0;
     padding: 0;
+    width: 100vw;
 }
 
 .container
 {
     text-align: center;
-    max-width: 100%;
+    width: 100vw;
     margin: auto;
     padding: 5%;
-    min-width: 670px;
 }
 
 h1
@@ -41,16 +41,21 @@ h2
 
 .table-container
 {
-    max-width: 100%; /* Adjust the width as needed */
+    width: 100vw;
 }
 
 table
 {
     /* Add a margin at the top to prevent content from hiding under the sticky header */
     margin-top: 20px;
-    table-layout: fixed;
+    table-layout: auto;
     border-collapse: collapse;
     width: 100%; /* Adjust the width as needed */
+}
+
+th, td
+{
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
 table td
@@ -111,6 +116,10 @@ footer
 /* Media query for responsive design */
 @media (max-width: 768px)
 {
+    th, td
+    {
+        width: 100vw;
+    }
     .container {
         padding: 10px;
     }
