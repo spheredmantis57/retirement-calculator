@@ -50,7 +50,7 @@ table
     margin-top: 20px;
     table-layout: auto;
     border-collapse: collapse;
-    width: 100%; /* Adjust the width as needed */
+    width: 95%; /* Adjust the width as needed */
 }
 
 th, td
